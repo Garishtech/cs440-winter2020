@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string>
 #include <bits/stdc++.h>
+#include <unordered_map>
+#include <string.h>
 
 using namespace std;
 
@@ -18,11 +20,14 @@ int main(int argc, char* argv[]) {
 	// Variable to store input
 	string input;
 
+	// Creates our linear hash table
+	unordered_map<string, struct employee> constants;
+
 	// Keeps asking for input until user exits the program
 	while(input != "exit") {
 		
 		// Gets the users input
-		cout << "Enter choice (type \"exit\" to exit the program): ";
+		cout << "Enter choice (type \"C\", \"L\", or \"exit\" to exit the program): ";
 		cin >> input;
 
 		// Runs the option for "C"
@@ -34,59 +39,66 @@ int main(int argc, char* argv[]) {
 			// Gets each value from each tuple
 			string line, colname;
 			if (myFile.good()){
+
 				// Gets the line
 				while (getline(myFile, line)) {
+
 					struct employee emp;
 					stringstream ss(line);
+
 					// Gets the column
 					int counter = 0;
 					while (getline(ss, colname, ',')) {
+
+						// Adds the values to their specific variable in the employee struct
 						switch(counter) {
 							case 0:
-								cout << colname;
-								cout << "\n";
 								strcpy(emp.id, colname.c_str());
-								cout << emp.id;
-								cout << "\n";
 								break;
 							case 1:
-								cout << colname;
-								cout << "\n";
 								strcpy(emp.name, colname.c_str());
-								cout << emp.name;
-								cout << "\n";
 								break;
 							case 2:
-								cout << colname;
-								cout << "\n";
 								strcpy(emp.bio, colname.c_str());
-								cout << emp.bio;
-								cout << "\n";
 								break;
 							case 3:
-								cout << colname;
-								cout << "\n";
 								strcpy(emp.manager_id, colname.c_str());
-								cout << emp.manager_id;
-								cout << "\n";
 								break;
 						}
-						cout << emp.id;
-						cout << "\n";
-						cout << emp.name;
-						cout << "\n";
-						cout << emp.bio;
-						cout << "\n";
-						cout << emp.manager_id;
-						cout << "\n";
+						counter = counter + 1;
+
 					}
+
+					// Adds our employee struct as a value in our linear hash table
+					stringstream str(emp.id);
+					string id;
+					str >> id;
+					constants.insert(make_pair(id, emp));
+
 				}
+
 			}
+
+			// Lets the user know the tuples have been added to the hash table
+			cout << "Relations have been added to the table from the \"Employee.csv\" file." << endl;
 
 		}
 
 		// Runs the option for "L"
-		else if (input == "L") {
+		else if (input.at(0) == 'L') {
+
+			// Gets the id of the tuple the user wants
+			string index = input.substr(1);
+
+			// Prints the matching tuple
+			for (auto itr = constants.begin(); itr != constants.end(); itr++) {
+				if (itr->first == index) {
+					cout << "ID: " << itr->second.id << endl;
+					cout << "Name: " << itr->second.name << endl;
+					cout << "Bio: " << itr->second.bio << endl;
+					cout << "Manager ID: " << itr->second.manager_id << endl;
+				}
+			}
 
 		}
 
