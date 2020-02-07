@@ -20,8 +20,9 @@ int main(int argc, char* argv[]) {
 	// Variable to store input
 	string input;
 
-	// Creates our linear hash table
+	// Creates our linear hash table and sets our max load factor to trigger a rehash
 	unordered_map<string, struct employee> constants;
+	constants.max_load_factor(0.8);
 
 	// Keeps asking for input until user exits the program
 	while(input != "exit") {
@@ -81,6 +82,25 @@ int main(int argc, char* argv[]) {
 
 			// Lets the user know the tuples have been added to the hash table
 			cout << "Relations have been added to the table from the \"Employee.csv\" file." << endl;
+
+			// Output the relations to a file
+			ofstream myfile;
+			myfile.open ("EmployeeIndex.txt");
+			for (auto itr = constants.begin(); itr != constants.end(); itr++) {
+				myfile << "{ ";
+				myfile << itr->first;
+				myfile << " | ";
+				myfile << itr->second.id;
+				myfile << ", ";
+				myfile << itr->second.name;
+				myfile << ", ";
+				myfile << itr->second.bio;
+				myfile << ", ";
+				myfile << itr->second.manager_id;
+				myfile << " }";
+				myfile << "\n";
+			}
+			myfile.close();
 
 		}
 

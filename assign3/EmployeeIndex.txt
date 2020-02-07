@@ -1,0 +1,2 @@
+{ 10, 10, Michael, Manages banana stand, 9 }
+{ 5, 5, George Michael, Works at the banana stand, 10 }

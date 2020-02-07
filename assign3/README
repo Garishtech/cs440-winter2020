@@ -1,7 +1,8 @@
 Instructions for running
 
-1) Grant exec access to the "comp" and "run" script with "chmod 755 comp && chmod 755 run"
-2) Complile the program using the "comp" script
-3) Run the program using the "run" script
+1) Grant exec access to the "comp" and "run" scripts by running "chmod 755 comp && chmod 755 run"
+2) Complile the program using the "comp" script by running "comp"
+3) Run the program using the "run" script by running "run"
 4) When prompted, type "C" to load all the tuples into the hash table from the "Employee.csv" file
 5) When prompted, type "L<id>" (no spaces) to return the tuple with the same id
+6) Exit the program and run "cat EmployeeIndex.txt" to view the output in the text file
